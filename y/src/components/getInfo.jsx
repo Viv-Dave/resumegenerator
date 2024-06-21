@@ -1,3 +1,4 @@
+import './getInfo.css';
 import { useState } from "react";
 import { GeneralForm } from "./renderForm";
 import { EducationForm } from "./renderForm";
@@ -19,24 +20,29 @@ export default function GetInfo() {
     const [educationInfo, setEducationInfo] = useState(null);
     const [experienceInfo, setExperienceInfo] = useState(null);
     const [skillInfo, setSkillInfo] = useState(null);
-
     return (
-        <div>
-            <button onClick={openForm}>General Information</button>
-            <div className="renderHere" id="Form1">
-                {open1 && <GeneralForm setPersonalInfo={setPersonalInfo}/>}
-            </div>
-            <button onClick={openForm2}>Add Education</button>
-            <div className="renderHere" id="Form2">
-                {open2 && <EducationForm setEducationInfo= {setEducationInfo}/>}
-            </div>
-            <button onClick={openForm3}>Add Experience</button>
-            <div className="renderHere" id="Form3">
-                {open3 && <ExperienceForm setExperienceInfo={setExperienceInfo}/>}
-            </div>
-            <button onClick={openForm4}>Add Skills</button>
-            <div className="renderHere" id="Form4">
-                {open4  && <SkillForm setSkillInfo={setSkillInfo}/>}
+        <div className="container">
+            <div>
+                <button onClick={openForm}>General Information</button>
+                <button onClick={()=>setIsOpen(false)}>Close</button>
+                <div className="renderHere" id="Form1">
+                    {open1 && <GeneralForm setPersonalInfo={setPersonalInfo}/>}
+                </div>
+                <button onClick={openForm2}>Add Education</button>
+                <button onClick={()=>setIsOpen2(false)}>Close</button>
+                <div className="renderHere" id="Form2">
+                    {open2 && <EducationForm setEducationInfo= {setEducationInfo}/>}
+                </div>
+                <button onClick={openForm3}>Add Experience</button>
+                <button onClick={()=>setIsOpen3(false)}>Close</button>
+                <div className="renderHere" id="Form3">
+                    {open3 && <ExperienceForm setExperienceInfo={setExperienceInfo}/>}
+                </div>
+                <button onClick={openForm4}>Add Skills</button>
+                <button onClick={()=>setIsOpen4(false)}>Close</button>
+                <div className="renderHere" id="Form4">
+                    {open4  && <SkillForm setSkillInfo={setSkillInfo}/>}
+                </div>
             </div>
             <div>
                 <DisplayInfo 

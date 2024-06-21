@@ -6,7 +6,7 @@ export function GeneralForm({setPersonalInfo}) {
          fullName: data.get('FullName'),
          email: data.get('Email'),
          phoneNumber: data.get('PhoneNumber'),
-         city: data.get('City')
+         linkedin: data.get('linkedin')
      };
      console.log(personalInfo);
      setPersonalInfo(personalInfo);
@@ -24,8 +24,9 @@ export function GeneralForm({setPersonalInfo}) {
              <label htmlFor="PhoneNumber">
                  <input type="number" placeholder="Enter Phone Number" name="PhoneNumber" />
              </label>
-             <label htmlFor="City">
-                 <input type="text" placeholder="Enter City" name="City"/>
+             <label htmlFor="linkedin">
+                 <input type="text" placeholder="Enter linkedin ID" name="linkedin"/>
+                 {/* Dont forget to make it a url type */}
              </label>
              <button>Submit</button>
          </form>

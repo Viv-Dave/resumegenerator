@@ -1,16 +1,27 @@
+import './resume.css'
 export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo}) {
     return (
-        <div>
-            <h3>Personal Info</h3>
+        <div className="resume">
             {personalInfo ? (
                 <>
-                    <p>Full Name: {personalInfo.fullName}</p>
+                <div className='header'>
+                    <h5>{personalInfo.fullName}</h5>
+                    <div className='below-header'>
                     <p>Email: {personalInfo.email}</p>
                     <p>Phone Number: {personalInfo.phoneNumber}</p>
-                    <p>City: {personalInfo.city}</p>
+                    <p>Enter Linkedin ID: {personalInfo.linkedin}</p>
+                    </div>
+                </div>
                 </>
             ) : (
-                <p>No personal information submitted yet.</p>
+                <div className='header'>
+                     <h5>XYZ ABC</h5>
+                    <div className='below-header'>
+                    <p>xyz@email.com</p>
+                     <p>+91 123456789</p>
+                     <p>www.linkedin.com</p>
+                    </div>
+                </div>
             )}
             <h3>Educational Info</h3>
             {educationInfo ? (
