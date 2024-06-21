@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './style/index.css'
-import Greeting from './App.jsx'
+import Greeting from './components/App.jsx'
 import GetInfo from './components/getInfo.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
