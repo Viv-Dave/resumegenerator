@@ -1,11 +1,12 @@
+// import { useState } from 'react'
 import './resume.css'
-export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo}) {
+export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo, items, EduItems, ExpItems}) {
     return (
         <div className="resume">
-            {personalInfo ? (
+            {items ? (
                 <>
                 <div className='header'>
-                    <h5>{personalInfo.fullName}</h5>
+                    <h5>{personalInfo.fullName || 'John Smith'}</h5>
                     <div className='below-header'>
                     <p>Email: {personalInfo.email}</p>
                     <p>Phone Number: {personalInfo.phoneNumber}</p>
@@ -24,39 +25,77 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
                 </div>
             )}
             <h3>Educational Info</h3>
+            <hr></hr>
             {educationInfo ? (
                 <>
-                    <p>School: {educationInfo.school}</p>
-                    <p>Field: {educationInfo.fieldOfStudy}</p>
-                    <p>Start Date: {educationInfo.startDate}</p>
-                    <p>End Date: {educationInfo.endDate}</p>
-                    <p>Location: {educationInfo.location}</p>
+                 <div className='education'>
+                        <div>
+                        {EduItems.map((item, index) => (
+                            <div key={index}>
+                                <div className='educationInfo'>
+                                <div>
+                                    <p>{item.School}</p>
+                                    <p>{item.FieldofStudy}, Grade: {item.Grade}</p>
+                                </div>
+                                <div>
+                                    <p>{item.Location}</p>
+                                    <p>{item.StartDate} - {item.EndDate}</p> 
+                                </div>    
+                                </div>
+                            <br />
+                            </div>
+                            ))}
+                        </div>
+                </div>
                 </>
             ) : (
-                <p>No School Info submitted yet.</p>
+                <div className='education'>
+    
+                </div>
             )
             }
             <h3>Experience</h3>
+            <hr></hr>
             {experienceInfo ? (
                 <>
-                    <p>Full Name: {experienceInfo.CompanyName}</p>
-                    <p>Position: {experienceInfo.Position}</p>
-                    <p>Start Date: {experienceInfo.startDate}</p>
-                    <p>End Date: {experienceInfo.endDate}</p>
-                    <p>Location: {experienceInfo.location}</p>
-                  
+                <div className='displayExperience'>
+                    <div>
+                    {ExpItems.map((item, index) => (
+                            <div key={index}>
+                                <div className='educationInfo'>
+                                <div>
+                                    <p>{item.CompanyName}</p>
+                                    <p>{item.Position}</p>
+                                </div>
+                                <div>
+                                    <p>{item.Location}</p>
+                                    <p>{item.StartDate} - {item.EndDate}</p> 
+                                </div>    
+                                </div>
+                            <br />
+                            </div>
+                        ))}
+                    </div>
+                </div>
                 </>
             ) : (
-                <p>No Experience submitted yet.</p>
+                <div className='displayExperience'>
+                </div>
             )}
             <h3>Skills</h3>
+            <hr></hr>
             {skillInfo ? (
                 <>
+                <div className='displaySkills'>
                 <p>{skillInfo.domain} : </p>
                 <p>{skillInfo.skills}</p>
+                </div>
                 </>
             ) : (
-                <p> No Skill submitted yet </p>
+                <div className='displaySkills'>
+                    <h6> Skill Domain: </h6>
+                    <p>Skill-1, Skill-2, Skill-3, etc</p>
+                </div>
             )
             }
         </div>

@@ -1,0 +1,67 @@
+.resume {
+    border: 2px solid black;
+    padding: 30px;
+    font-size: 30px;
+    height: max-content;
+    width: max-content;
+}
+.header {
+    display: flex;
+    flex-direction:column ;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    font-family: sans-serif;
+}
+.below-header {
+    display: flex;
+    flex-direction: row;
+    font-size: 10px;
+    gap: 10px;
+    margin: 0;
+}
+h5 {
+    margin: 0;
+}
+hr {
+    margin: 0;
+}
+h3 {
+    padding: 0;
+    margin: 0;
+    font-size: var(--font-size);
+    font-family: var(--font-style);
+}
+.education {
+    margin: 0;
+    display: flex;
+}
+.education > div {
+    margin: 0;
+    font-size: 0.8rem;
+    font-family: var(--font-style);
+}
+.subheading {
+    font-size: 0.6rem;
+}
+.educationInfo {
+    display: flex;
+    gap: 50px;;
+}
+.displayExperience {
+    font-size: var(--font-size);
+    display: flex;
+    gap: 50px;
+}
+.displaySkills {
+    font-size: var(--font-size);
+    margin: 0;
+}
+hr {
+    border: 0.1px solid black;   
+}
+:root {
+    --font-size: 1rem;
+    --font-style: sans-serif;
+}
+
