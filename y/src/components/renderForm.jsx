@@ -1,35 +1,34 @@
-export function GeneralForm({setPersonalInfo, setItems, items, personalInfo}) {
-    const handleChange = (e) => {
-        const { name, value} = e.target;
-        setPersonalInfo ( {
-            ...personalInfo,
-            [name]: value,
-        })
-    }
+export function GeneralForm({setPersonalInfo}) {
     const handleSubmit = (e) => {
-     e.preventDefault();
-     setItems([...items, personalInfo])
-     setPersonalInfo({FullName: '', Email:''});
-     console.log(personalInfo)
- }
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const personalInfo = {
+                FullName: data.get('FullName'),
+                Email: data.get('Email'),
+                PhoneNumber: data.get('PhoneNumber'),
+                Linkedin: data.get('Linkedin'),
+            };
+            console.log(personalInfo);
+            setPersonalInfo(personalInfo);
+        }
  return (
      <div>
          <h3>Enter Personal Information</h3>
          <form action="#" method="get" onSubmit={handleSubmit}>
              <label htmlFor="FullName">
-                 <input type="text" placeholder="Enter Full Name" name="FullName" onChange={handleChange}  value={personalInfo.FullName}/>
+                 <input type="text" placeholder="Enter Full Name" name="FullName"/>
              </label>
              <label htmlFor="Email">
-                 <input type="text" placeholder="Enter Email" name="Email" onChange={handleChange} value={personalInfo.Email}/>
+                 <input type="text" placeholder="Enter Email" name="Email"/>
              </label>
              <label htmlFor="PhoneNumber">
                  <input type="number" placeholder="Enter Phone Number" name="PhoneNumber" />
              </label>
              <label htmlFor="linkedin">
-                 <input type="text" placeholder="Enter linkedin ID" name="linkedin"/>
+                 <input type="text" placeholder="Enter linkedin ID" name="Linkedin"/>
                  {/* Dont forget to make it a url type */}
              </label>
-             <button>Submit</button>
+             <button className="submit-button">Submit</button>
          </form>
      </div>
  );
@@ -113,24 +112,44 @@ export function ExperienceForm({setExperienceInfo, experienceInfo, ExpItems, set
         </div>
     );
 }
-export function SkillForm({setSkillInfo}) {
+export function SkillForm({setSkillInfo, skillInfo, SkillItems, setSkillItems}) {
+    const handleChange = (e) => {
+        const { name, value} = e.target;
+        setSkillInfo ( {
+            ...skillInfo,
+            [name]: value,
+        })
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = new FormData(e.target);
-        const skillInfo = {
-            domain: data.get('Domain'),
-            skills : data.get('Skills')
-        };
+        setSkillItems([...SkillItems, skillInfo])
+        setSkillInfo({SkillDomain:'', Skills:''});
         console.log(skillInfo)
-        setSkillInfo(skillInfo)
-    };
-
+    }
     return (
         <div>
             <h3>
                 Enter Skill
             </h3>
-            <form action="#" method="get" onSubmit={handleSubmit}>
+            <form action="#" method="get" onSubmit={handleSubmit} onChange={handleChange}>
+                <label htmlFor="SkillS Name">
+                    <input type="text" placeholder="Enter Domain" name="SkillDomain" value={skillInfo.SkillDomain}/>
+                </label>
+                <label htmlFor="Skills">
+                    <input type="text" placeholder="Enter Skills in that domain..." name="Skills" value={skillInfo.Skills}/>
+                </label>
+                <button>Submit</button>
+            </form>
+        </div>
+    )
+}
+export function AchievementForm () {
+    return (
+        <div>
+            <h3>
+                Enter Achievement
+            </h3>
+            <form action="#" method="get">
                 <label htmlFor="SkillS Name">
                     <input type="text" placeholder="Enter Domain" name="Domain"/>
                 </label>
@@ -140,5 +159,57 @@ export function SkillForm({setSkillInfo}) {
                 <button>Submit</button>
             </form>
         </div>
-    )
+    )   
+}
+export function ProjectForm ({setProjectInfo, projectInfo, setProjectItems, ProjectItems}) {
+    const handleChange = (e) => {
+        const { name, value} = e.target;
+        setProjectInfo ( {
+            ...projectInfo,
+            [name]: value,
+        })
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setProjectItems([...ProjectItems, projectInfo])
+        setProjectInfo({ProjectName:'', ProjectDes:'', ProjectLink:''});
+        console.log(projectInfo)
+    }
+    return (
+        <div>
+            <h3>
+                Enter Project
+            </h3>
+            <form action="#" method="get" onSubmit={handleSubmit}>
+                <label htmlFor="Project Title">
+                    <input type="text" placeholder="Enter Project Title" name="ProjectName" value={projectInfo.ProjectName} onChange={handleChange}/>
+                </label>
+                <label htmlFor="Project Description">
+                    <input type="text" placeholder="Enter Project Description" name="ProjectDes" value={projectInfo.ProjectDes} onChange={handleChange}/>
+                </label>
+                <label htmlFor="Project Link">
+                    <input type="text" placeholder="" name="ProjectLink" value={projectInfo.ProjectLink} onChange={handleChange}/>
+                </label>
+                <button>Submit</button>
+            </form>
+        </div>
+    )   
+}
+export function CertificateForm() {
+    return (
+        <div>
+            <h3>
+                Enter Certificate
+            </h3>
+            <form action="#" method="get">
+                <label htmlFor="SkillS Name">
+                    <input type="text" placeholder="Enter Domain" name="Domain"/>
+                </label>
+                <label htmlFor="Skills">
+                    <input type="text" placeholder="Enter Skills in that domain..." name="Skills"/>
+                </label>
+                <button>Submit</button>
+            </form>
+        </div>
+    );
 }

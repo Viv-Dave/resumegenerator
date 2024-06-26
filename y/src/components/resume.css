@@ -1,9 +1,15 @@
+body {
+    font-family: var(--font-style);
+}
 .resume {
     border: 2px solid black;
     padding: 30px;
     font-size: 30px;
     height: max-content;
     width: max-content;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-style);
 }
 .header {
     display: flex;
@@ -57,8 +63,10 @@ h3 {
     font-size: var(--font-size);
     margin: 0;
 }
-hr {
-    border: 0.1px solid black;   
+.project-item {
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
 }
 :root {
     --font-size: 1rem;

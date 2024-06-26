@@ -1,16 +1,18 @@
 // import { useState } from 'react'
 import './resume.css'
-export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo, items, EduItems, ExpItems}) {
+export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo, EduItems, ExpItems, SkillItems, projectInfo, ProjectItems}) {
     return (
         <div className="resume">
-            {items ? (
+            {personalInfo ? (
                 <>
                 <div className='header'>
-                    <h5>{personalInfo.fullName || 'John Smith'}</h5>
+                    <h5>{personalInfo.FullName}</h5>
                     <div className='below-header'>
-                    <p>Email: {personalInfo.email}</p>
-                    <p>Phone Number: {personalInfo.phoneNumber}</p>
-                    <p>Enter Linkedin ID: {personalInfo.linkedin}</p>
+                    <p>{personalInfo.Email}</p>
+                    <hr/>
+                    <p>{personalInfo.PhoneNumber}</p>
+                    <hr />
+                    <p>{personalInfo.Linkedin}</p>
                     </div>
                 </div>
                 </>
@@ -19,7 +21,9 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
                      <h5>XYZ ABC</h5>
                     <div className='below-header'>
                     <p>xyz@email.com</p>
+                    <hr />
                      <p>+91 123456789</p>
+                     <hr />
                      <p>www.linkedin.com</p>
                     </div>
                 </div>
@@ -87,17 +91,37 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
             {skillInfo ? (
                 <>
                 <div className='displaySkills'>
-                <p>{skillInfo.domain} : </p>
-                <p>{skillInfo.skills}</p>
+                <div>
+                    {SkillItems.map((items, index)=> (
+                        <div key={index}>
+                            <p> <strong> {items.SkillDomain} : </strong> {items.Skills}</p>
+                        </div>
+                    ))}
+                </div>  
                 </div>
                 </>
             ) : (
                 <div className='displaySkills'>
-                    <h6> Skill Domain: </h6>
+                    <h6> <strong></strong>Skill Domain: </h6>
                     <p>Skill-1, Skill-2, Skill-3, etc</p>
                 </div>
             )
             }
+
+              {projectInfo && (
+                <div className='project-info'>
+                    <h3>Projects</h3>
+                    <hr />
+                    {ProjectItems.map((project, index) => (
+                        <div key={index} className='project-item'>
+                        
+                            <p><strong>{project.ProjectName}</strong></p>
+                            <p>{project.ProjectDes}</p>
+                            <p>{project.ProjectLink}</p>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     )
 } 

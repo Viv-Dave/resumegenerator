@@ -1,10 +1,26 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    gap: 40px
+   display: grid;
+   grid-auto-flow: column;  
+
+}
+.Optional {
+    justify-self: end;
+}
+.cv-container {
+    justify-self: center;
 }
 form {
     display: flex;
     flex-direction: column;
     gap:20px;
+}
+.button-container {
+    border: 1px solid black;
+}
+button {
+    font-size: 16px;
+    padding: 10px;
+}
+.submit-button {
+    width: max-content;
 }
