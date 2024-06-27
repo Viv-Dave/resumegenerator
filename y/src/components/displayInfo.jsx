@@ -1,6 +1,20 @@
 // import { useState } from 'react'
 import './resume.css'
-export default function DisplayInfo({personalInfo, educationInfo, experienceInfo, skillInfo, EduItems, ExpItems, SkillItems, projectInfo, ProjectItems}) {
+export default function DisplayInfo({
+            personalInfo, 
+            educationInfo, 
+            experienceInfo, 
+            skillInfo, 
+            EduItems, 
+            ExpItems, 
+            SkillItems, 
+            projectInfo, 
+            ProjectItems, 
+            CertificateItems, 
+            CertificateInfo, 
+            AchievementsItems,
+            AchievementsInfo,
+        }) {
     return (
         <div className="resume">
             {personalInfo ? (
@@ -38,15 +52,14 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
                             <div key={index}>
                                 <div className='educationInfo'>
                                 <div>
-                                    <p>{item.School}</p>
-                                    <p>{item.FieldofStudy}, Grade: {item.Grade}</p>
+                                    <p><strong>{item.School}</strong></p>
+                                    <p><em>{item.FieldofStudy}, Grade: {item.Grade}</em></p>
                                 </div>
-                                <div>
-                                    <p>{item.Location}</p>
-                                    <p>{item.StartDate} - {item.EndDate}</p> 
+                                <div className='location'>
+                                    <p><strong>{item.Location}</strong></p>
+                                    <p><em>{item.StartDate} - {item.EndDate}</em></p> 
                                 </div>    
                                 </div>
-                            <br />
                             </div>
                             ))}
                         </div>
@@ -62,18 +75,18 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
             <hr></hr>
             {experienceInfo ? (
                 <>
-                <div className='displayExperience'>
+                <div className='education'>
                     <div>
                     {ExpItems.map((item, index) => (
                             <div key={index}>
                                 <div className='educationInfo'>
                                 <div>
-                                    <p>{item.CompanyName}</p>
-                                    <p>{item.Position}</p>
+                                    <p><strong>{item.CompanyName}</strong></p>
+                                    <p><em>{item.Position}</em></p>
                                 </div>
-                                <div>
-                                    <p>{item.Location}</p>
-                                    <p>{item.StartDate} - {item.EndDate}</p> 
+                                <div className='location secondary'>
+                                    <p><strong>{item.Location}</strong></p>
+                                    <p><em>{item.StartDate} - {item.EndDate}</em></p> 
                                 </div>    
                                 </div>
                             <br />
@@ -107,18 +120,51 @@ export default function DisplayInfo({personalInfo, educationInfo, experienceInfo
                 </div>
             )
             }
-
               {projectInfo && (
                 <div className='project-info'>
-                    <h3>Projects</h3>
-                    <hr />
+                   
                     {ProjectItems.map((project, index) => (
                         <div key={index} className='project-item'>
-                        
-                            <p><strong>{project.ProjectName}</strong></p>
+                            <h3>Projects</h3>
+                            <hr />
+                            <div className='displaySkills'>
+                            <p><strong>{project.ProjectName}</strong> [{project.ProjectLink}]</p>
                             <p>{project.ProjectDes}</p>
-                            <p>{project.ProjectLink}</p>
+
+                            </div>
                         </div>
+                    ))}
+                </div>
+            )}
+             {CertificateInfo && (
+                <div className='project-info'>
+                   
+                    {CertificateItems.map((certificate, index) => (
+                        <div key={index} className='project-item'>
+                            <h3>Certificates</h3>
+                            <hr />
+                            <div className='displaySkills'>
+                            <p><strong>{certificate.CertificateName}</strong> [{certificate.Grantedby}]</p>
+                            <p>{certificate.Date}</p>
+                            <p>{certificate.CertID}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+             {AchievementsInfo && (
+                <div className='project-info'>
+                   
+                    {AchievementsItems.map((achievement, index) => (
+                        <div key={index} className='project-item'>
+                            <h3>Achievements</h3>
+                            <hr />
+                            <div className='displaySkills'>
+                            <p><strong>{achievement.Name}</strong></p>
+                            <p>{achievement.Description}</p>
+                            </div>
+                        </div>
+
                     ))}
                 </div>
             )}

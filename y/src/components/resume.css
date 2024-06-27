@@ -6,7 +6,7 @@ body {
     padding: 30px;
     font-size: 30px;
     height: max-content;
-    width: max-content;
+    width: 20em;
     display: flex;
     flex-direction: column;
     font-family: var(--font-style);
@@ -34,7 +34,7 @@ hr {
 }
 h3 {
     padding: 0;
-    margin: 0;
+    margin: 5px;
     font-size: var(--font-size);
     font-family: var(--font-style);
 }
@@ -51,22 +51,25 @@ h3 {
     font-size: 0.6rem;
 }
 .educationInfo {
-    display: flex;
-    gap: 50px;;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 350px; 
+    align-items: center; /* Vertically aligns items */ 
+    margin: 0;
+    padding: 0; 
 }
-.displayExperience {
-    font-size: var(--font-size);
-    display: flex;
-    gap: 50px;
+.location{
+    text-align: right;
+    margin: -20px;
+    padding: -50px;
 }
 .displaySkills {
-    font-size: var(--font-size);
-    margin: 0;
+    font-size: 0.8rem;
+    padding: 5px;
 }
 .project-item {
     font-size: 0.8rem;
     margin: 0;
-    padding: 0;
 }
 :root {
     --font-size: 1rem;
