@@ -116,22 +116,22 @@ export function ExperienceForm({setExperienceInfo, experienceInfo, ExpItems, set
                     <input type="text" placeholder="Position" name="Position" value={experienceInfo.Position} required/>
                 </label>
                 <label htmlFor="StartDate">
-                    <input type="text" placeholder="Enter Start Date" name="StartDate" value={experienceInfo.StartDate} required/>
+                    <input type="date" placeholder="Enter Start Date" name="StartDate" value={experienceInfo.StartDate} required/>
                 </label>
                 <label htmlFor="EndDate">
-                    <input type="text" placeholder="Enter End Date" name="EndDate" value={experienceInfo.EndDate} required/>
+                    <input type="date" placeholder="Enter End Date" name="EndDate" value={experienceInfo.EndDate} required/>
                 </label>
                 <label htmlFor="Location">
                     <input type="text" placeholder="Enter Location of the Company" name="Location" value={experienceInfo.Location} required/>
                 </label>
                 <label htmlFor="Points">
                     <h6>Enter Description of the type of work you did</h6>
-                    <input type="text" placeholder="Enter Description" name="Point1" value={experienceInfo.Point1} required/>
-                    <input type="text" placeholder="Enter Description" name="Point2" value={experienceInfo.Point2} required/>
+                    <input type="text" placeholder="Enter Description" name="Point1" maxLength={280} value={experienceInfo.Point1} required/>
+                    <input type="text" placeholder="Enter Description" name="Point2" maxLength={280} value={experienceInfo.Point2} required/>
                     <h6>(Optional)</h6>
-                    <input type="text" placeholder="Enter Description" name="Point3" value={experienceInfo.Point3}/>
+                    <input type="text" placeholder="Enter Description" name="Point3" maxLength={280} value={experienceInfo.Point3}/>
                     <h6>(Optional)</h6>
-                    <input type="text" placeholder="Enter Description" name="Point1" value={experienceInfo.Point4}/>
+                    <input type="text" placeholder="Enter Description" name="Point4" maxLength={280} value={experienceInfo.Point4}/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -205,10 +205,10 @@ export function AchievementForm ({setAchievementInfo, AchievementsInfo, Achievem
             </h3>
             <form action="#" method="get" onSubmit={handleSubmit}>
                 <label htmlFor="Achievement Name">
-                    <input type="text" placeholder="Enter Achievement Name" name="Name" value={AchievementsInfo.Name} onChange={handleChange} required/>
+                    <input type="text" placeholder="Enter Achievement Name" name="Name" maxLength={100} value={AchievementsInfo.Name} onChange={handleChange} required/>
                 </label>
                 <label htmlFor="Description">
-                    <input type="text" placeholder="Enter a short description" name="Description" value={AchievementsInfo.Description} onChange={handleChange} required/>
+                    <input type="text" placeholder="Enter a short description" name="Description" maxLength={280} value={AchievementsInfo.Description} onChange={handleChange} required/>
                 </label>
                 <button>Submit</button>
             </form>

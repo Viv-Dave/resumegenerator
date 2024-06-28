@@ -52,9 +52,8 @@ h3 {
 }
 .educationInfo {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 350px; 
-    align-items: center; /* Vertically aligns items */ 
+    grid-template-columns: 1fr 1fr;
+    gap: 300px;  
     margin-bottom: -5px;
 }
 .educationInfo p {
@@ -62,8 +61,6 @@ h3 {
 }
 .location{
     text-align: right;
-    margin: -20px;
-    padding: -50px;
 }
 .displaySkills {
     font-size: 0.8rem;

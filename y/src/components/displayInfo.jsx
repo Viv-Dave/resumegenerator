@@ -1,6 +1,5 @@
-// import { useState } from 'react'
 import './resume.css'
-export default function DisplayInfo() {
+export default function DisplayInfo({resumeRef}) {
             console.log(localStorage)
             const storedPersonalInfo = JSON.parse(localStorage.getItem('personalInfo'));
             const storedEduItems = JSON.parse(localStorage.getItem('eduItems'));
@@ -9,8 +8,9 @@ export default function DisplayInfo() {
             const storedAchievementsItems = JSON.parse(localStorage.getItem('achieveItems'));
             const storedProjectItems = JSON.parse(localStorage.getItem('projectItems'));
             const storedCertificateItems = JSON.parse(localStorage.getItem('certiItems'))
+        
     return (
-        <div className="resume">
+        <div className="resume" ref={resumeRef}>
             {storedPersonalInfo ? (
                 <>
                 <div className='header'>
@@ -190,6 +190,7 @@ export default function DisplayInfo() {
                     ))}
                 </div>
             )}
+
         </div>
     )
 } 

@@ -1,4 +1,6 @@
 import './getInfo.css';
+import deletebtn from '../images/deletebtn.svg';
+import addbtn from '../images/addbtn.svg';
 import { useState } from "react";
 import { GeneralForm, ProjectForm } from "./renderForm";
 import { EducationForm } from "./renderForm";
@@ -7,6 +9,9 @@ import { SkillForm } from "./renderForm";
 import { AchievementForm } from './renderForm';
 import { CertificateForm } from './renderForm';
 import DisplayInfo from './displayInfo';
+import { useRef } from 'react'
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 export default function GetInfo() {
     const [open1, setIsOpen] = useState(false);
     const [open2, setIsOpen2] = useState(false); 
@@ -82,7 +87,23 @@ export default function GetInfo() {
             break;
         }
       };
-      
+      const resumeRef = useRef(null); // Reference to the resume container
+
+      const handleExportImage = async () => {
+        // Capture the content of the resume container
+        const resumeElement = resumeRef.current;
+        const canvas = await html2canvas(resumeElement);
+    
+        // Convert canvas to image data URL (optional)
+        const imageDataURL = canvas.toDataURL('image/png');
+    
+        // Create a PDF document
+        const pdf = new jsPDF();
+    
+        // Add the image (or content directly) to the PDF
+        pdf.addImage(imageDataURL || canvas, 'PNG', 0, 0); // Adjust X, Y coordinates for placement
+        pdf.save('MyResume.pdf'); // Save the PDF with a filename
+      };
     return (
         <div className="container">
             <div className='button-container'>
@@ -93,7 +114,7 @@ export default function GetInfo() {
                             <>
                             <div className='personal-card'>
                             <p>{storedPersonalInfo.FullName}</p>
-                            <button className='delete-button' onClick={handleDelete}>Delete</button>
+                            <button className='delete-button' onClick={handleDelete}><img src={deletebtn} alt="" /></button>
                             </div>
                             </>
                             )
@@ -108,12 +129,21 @@ export default function GetInfo() {
                 <h3>Education</h3>
                 <div>
                 <div className="experience-section">
-                    {storedEduItems.map((item, index) => (
+                {storedEduItems ? (
+                    (
+                        <>
+                        {storedEduItems.map((item, index) => (
                         <div key={index} className="expItem">
+                        <div className='personal-card'>
                         <p>{item.School}</p>
-                        <button onClick={() => handleSelectiveDelete('eduItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('eduItems', index)} className='delete-button'><img src={deletebtn} alt="" /></button>
+                        </div>
                         </div>
                     ))}
+                        </>
+                    )
+                )
+                :null}
                     </div>
                 <button onClick={openForm2}>Add Education</button>
                 <button onClick={()=>setIsOpen2(false)} className='button-secondary'>Close</button>
@@ -124,12 +154,21 @@ export default function GetInfo() {
                 <h3>Experience</h3>
                 <div>
                 <div className="experience-section">
-                    {storedExpItems.map((item, index) => (
+                {storedExpItems ? (
+                    (
+                        <>
+                         {storedExpItems.map((item, index) => (
                         <div key={index} className="expItem">
+                        <div className='personal-card'>
                         <p>{item.CompanyName}</p>
-                        <button onClick={() => handleSelectiveDelete('expItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('expItems', index)} className='delete-button'><img src={deletebtn} alt="" /></button>
+                        </div>
                         </div>
                     ))}
+                        </>
+                    )
+                )
+                :null}
                     </div>
                 <button onClick={openForm3}>Add Experience</button>
                 <button onClick={()=>setIsOpen3(false)} className='button-secondary'>Close</button>
@@ -140,12 +179,20 @@ export default function GetInfo() {
                 <h3>Skills</h3>
                 <div>
                 <div className="experience-section">
-                    {storedSkillItems.map((item, index) => (
+                {storedSkillItems ? (
+                    (
+                        <>
+                         {storedSkillItems.map((item, index) => (
                         <div key={index} className="expItem">
+                        <div className='personal-card'>
                         <p>{item.SkillDomain}</p>
-                        <button onClick={() => handleSelectiveDelete('skilledItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('skilledItems', index)} className='delete-button'><img src={deletebtn} alt="" /></button>
+                        </div>
                         </div>
                     ))}
+                        </>
+                    )
+                ):null}
                     </div>
                 <button onClick={openForm4}>Add Skills</button>
                 <button onClick={()=>setIsOpen4(false)} className='button-secondary'>Close</button>
@@ -153,6 +200,7 @@ export default function GetInfo() {
                 <div className="renderHere" id="Form4">
                     {open4  && <SkillForm setSkillInfo={setSkillInfo} skillInfo={skillInfo} SkillItems={SkillItems} setSkillItems={setSkillItems}/>}
                 </div>
+                <button onClick={handleExportImage} className='export'><img src={addbtn} alt="" className='addimg'/>Export as PDF</button>
                </div>
             <div className='cv-container'>
                 <DisplayInfo 
@@ -169,7 +217,7 @@ export default function GetInfo() {
                 ProjectItems={ProjectItems}
                 CertificateItems={CertificateItems}
                 AchievementsItems={AchievementsItems}
-
+                resumeRef={resumeRef}
                 />
             </div>
             <div className='Optional'>
@@ -177,12 +225,18 @@ export default function GetInfo() {
             <p><strong>Projects</strong>(Optional)</p>
             <div>
             <div className="experience-section">
+            {storedProjectItems ? (
+                (
+                    <>
                     {storedProjectItems.map((item, index) => (
-                        <div key={index} className="expItem">
+                        <div key={index} className="personal-card">
                         <p>{item.ProjectName}</p>
-                        <button onClick={() => handleSelectiveDelete('projectItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('projectItems', index)}><img src={deletebtn} alt="" /></button>
                         </div>
                     ))}
+                    </>
+                )
+            ):null}
                     </div>
             <button onClick={openForm5}>Add Projects</button>
             <button onClick={()=>setIsOpen5(false)} className='button-secondary'>Close</button>
@@ -193,12 +247,20 @@ export default function GetInfo() {
                 <p><strong>Achievements</strong>(Optional)</p>
             <div>
             <div className="experience-section">
-                    {storedAchievementsItems.map((item, index) => (
+            {storedAchievementsItems ? (
+                (
+                    <>
+                        {storedAchievementsItems.map((item, index) => (
                         <div key={index} className="expItem">
+                        <div className='personal-card'>
                         <p>{item.Name}</p>
-                        <button onClick={() => handleSelectiveDelete('achieveItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('achieveItems', index)}><img src={deletebtn} alt="" /></button>
+                        </div>
                         </div>
                     ))}
+                    </>
+                )
+            ):null}
                     </div>
             <button onClick={openForm6}>Add Achievements</button>
             <button onClick={()=>setIsOpen6(false)} className='button-secondary'>Close</button>
@@ -209,13 +271,17 @@ export default function GetInfo() {
             <p><strong>Certificates</strong>(Optional)</p>
             <div>
             <div className="experience-section">
-                    {storedCertificateItems.map((item, index) => (
-                        <div key={index} className="expItem">
+            {storedCertificateItems ? (
+                (<>
+                  {storedCertificateItems.map((item, index) => (
+                        <div key={index} className="personal-card">
                         <p>{item.CertificateName}</p>
-                        <button onClick={() => handleSelectiveDelete('certiItems', index)}>Delete</button>
+                        <button onClick={() => handleSelectiveDelete('certiItems', index)}><img src={deletebtn} alt="" /></button>
                         </div>
                     ))}
-                    </div>
+                </>)
+            ):null}
+            </div>
             <button onClick={openForm7}>Add Certificates</button>
             <button onClick={()=>setIsOpen7(false)} className='button-secondary'>Close</button>
             </div>
@@ -224,10 +290,8 @@ export default function GetInfo() {
                     {open7 && <CertificateForm setCertificateInfo={setCertificateInfo} CertificateInfo={CertificateInfo} CertificateItems={CertificateItems} setCertificateItems={setCertificateItems}/>}
                 </div>
                 <div>
-                <button className='export'>Export</button>
             </div>
             </div>
         </div>
-
     );
 }
