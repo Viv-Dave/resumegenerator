@@ -92,3 +92,19 @@ form textarea:focus {
     margin: 40;
     justify-self: center;
 }
+h6 {
+    margin: 0;
+    padding: 0;
+}
+.personal-card {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    gap: 40px;
+    width: fit-content;
+    padding: 4px;
+}
+.delete-button {
+    height: 10px;
+    width: 10px;
+}

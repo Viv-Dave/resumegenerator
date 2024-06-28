@@ -39,22 +39,82 @@ export default function GetInfo() {
     const [CertificateItems, setCertificateItems] = useState([]);
     const [AchievementsItems, setAchievementItems] = useState([]);
 
-    const handleDelete = (type, index) => {
-        setCertificateItems(CertificateItems.filter((_, i) => i !== index));
-    }
+    const storedPersonalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+    const storedEduItems = JSON.parse(localStorage.getItem('eduItems'));
+    const storedExpItems = JSON.parse(localStorage.getItem('expItems'));
+    const storedSkillItems = JSON.parse(localStorage.getItem('skilledItems'));
+    const storedAchievementsItems = JSON.parse(localStorage.getItem('achieveItems'));
+    const storedProjectItems = JSON.parse(localStorage.getItem('projectItems'));
+    const storedCertificateItems = JSON.parse(localStorage.getItem('certiItems'))
+
+    const handleDelete = () => {
+        localStorage.removeItem('personalInfo');
+        setPersonalInfo(null);
+      };
+      const handleSelectiveDelete = (key, index) => {
+        const items = JSON.parse(localStorage.getItem(key)) || [];
+        items.splice(index, 1);
+        localStorage.setItem(key, JSON.stringify(items));
+        updateState(key, items);
+      };
+      
+      const updateState = (key, items) => {
+        switch (key) {
+          case 'eduItems':
+            setEduItems(items);
+            break;
+          case 'expItems':
+            setExpItems(items);
+            break;
+          case 'skilledItems':
+            setSkillItems(items);
+            break;
+          case 'projectItems':
+            setProjectItems(items);
+            break;
+          case 'certiItems':
+            setCertificateItems(items);
+            break;
+          case 'achieveItems':
+            setAchievementItems(items);
+            break;
+          default:
+            break;
+        }
+      };
+      
     return (
         <div className="container">
             <div className='button-container'>
                 <h3>General Information</h3>
                 <div>
+                        {storedPersonalInfo ? (
+                            (
+                            <>
+                            <div className='personal-card'>
+                            <p>{storedPersonalInfo.FullName}</p>
+                            <button className='delete-button' onClick={handleDelete}>Delete</button>
+                            </div>
+                            </>
+                            )
+                        ): null}
                 <button onClick={openForm}>Add General Information</button>
                 <button onClick={()=>setIsOpen(false)} className='button-secondary'>Close</button>
                 </div>
+
                 <div className="renderHere" id="Form1">
                     {open1 && <GeneralForm setPersonalInfo={setPersonalInfo} personalInfo={personalInfo} setIsOpen={setIsOpen}/>}
                 </div>
                 <h3>Education</h3>
                 <div>
+                <div className="experience-section">
+                    {storedEduItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.School}</p>
+                        <button onClick={() => handleSelectiveDelete('eduItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
                 <button onClick={openForm2}>Add Education</button>
                 <button onClick={()=>setIsOpen2(false)} className='button-secondary'>Close</button>
                 </div>
@@ -63,6 +123,14 @@ export default function GetInfo() {
                 </div>
                 <h3>Experience</h3>
                 <div>
+                <div className="experience-section">
+                    {storedExpItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.CompanyName}</p>
+                        <button onClick={() => handleSelectiveDelete('expItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
                 <button onClick={openForm3}>Add Experience</button>
                 <button onClick={()=>setIsOpen3(false)} className='button-secondary'>Close</button>
                 </div>
@@ -71,14 +139,21 @@ export default function GetInfo() {
                 </div>
                 <h3>Skills</h3>
                 <div>
+                <div className="experience-section">
+                    {storedSkillItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.SkillDomain}</p>
+                        <button onClick={() => handleSelectiveDelete('skilledItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
                 <button onClick={openForm4}>Add Skills</button>
                 <button onClick={()=>setIsOpen4(false)} className='button-secondary'>Close</button>
                 </div>
                 <div className="renderHere" id="Form4">
                     {open4  && <SkillForm setSkillInfo={setSkillInfo} skillInfo={skillInfo} SkillItems={SkillItems} setSkillItems={setSkillItems}/>}
                 </div>
-                <button>Sorted Order</button>
-            </div>
+               </div>
             <div className='cv-container'>
                 <DisplayInfo 
                 personalInfo={personalInfo}
@@ -94,13 +169,21 @@ export default function GetInfo() {
                 ProjectItems={ProjectItems}
                 CertificateItems={CertificateItems}
                 AchievementsItems={AchievementsItems}
-                handleDelete={handleDelete}
+
                 />
             </div>
             <div className='Optional'>
 
             <p><strong>Projects</strong>(Optional)</p>
             <div>
+            <div className="experience-section">
+                    {storedProjectItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.ProjectName}</p>
+                        <button onClick={() => handleSelectiveDelete('projectItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
             <button onClick={openForm5}>Add Projects</button>
             <button onClick={()=>setIsOpen5(false)} className='button-secondary'>Close</button>
             </div>
@@ -109,14 +192,30 @@ export default function GetInfo() {
                 </div>
                 <p><strong>Achievements</strong>(Optional)</p>
             <div>
+            <div className="experience-section">
+                    {storedAchievementsItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.Name}</p>
+                        <button onClick={() => handleSelectiveDelete('achieveItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
             <button onClick={openForm6}>Add Achievements</button>
             <button onClick={()=>setIsOpen6(false)} className='button-secondary'>Close</button>
             </div>
                 <div>
                     {open6 && <AchievementForm setAchievementInfo={setAchievementInfo} AchievementsInfo={AchievementsInfo} AchievementsItems={AchievementsItems} setAchievementItems={setAchievementItems}/>}
                 </div>
-                <p><strong>Achievements</strong>(Optional)</p>
+            <p><strong>Certificates</strong>(Optional)</p>
             <div>
+            <div className="experience-section">
+                    {storedCertificateItems.map((item, index) => (
+                        <div key={index} className="expItem">
+                        <p>{item.CertificateName}</p>
+                        <button onClick={() => handleSelectiveDelete('certiItems', index)}>Delete</button>
+                        </div>
+                    ))}
+                    </div>
             <button onClick={openForm7}>Add Certificates</button>
             <button onClick={()=>setIsOpen7(false)} className='button-secondary'>Close</button>
             </div>

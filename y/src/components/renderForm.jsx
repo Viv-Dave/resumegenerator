@@ -1,4 +1,4 @@
-import { useEffect}  from "react";
+import { useEffect } from "react";
 export function GeneralForm({setPersonalInfo}) {
     const handleSubmit = (e) => {
             e.preventDefault();
@@ -11,22 +11,24 @@ export function GeneralForm({setPersonalInfo}) {
             };
             console.log(personalInfo);
             setPersonalInfo(personalInfo);
+            localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+            console.log(localStorage)
         }
  return (
      <div>
          <h3>Enter Personal Information</h3>
          <form action="#" method="get" onSubmit={handleSubmit}>
              <label htmlFor="FullName">
-                 <input type="text" placeholder="Enter Full Name" name="FullName"/>
+                 <input type="text" placeholder="Enter Full Name" name="FullName" required/>
              </label>
              <label htmlFor="Email">
-                 <input type="text" placeholder="Enter Email" name="Email"/>
+                 <input type="email" placeholder="Enter Email" name="Email" required/>
              </label>
              <label htmlFor="PhoneNumber">
-                 <input type="number" placeholder="Enter Phone Number" name="PhoneNumber" />
+                 <input type="number" placeholder="Enter Phone Number" name="PhoneNumber" required/>
              </label>
              <label htmlFor="linkedin">
-                 <input type="text" placeholder="Enter linkedin ID" name="Linkedin"/>
+                 <input type="url" placeholder="Enter linkedin ID" name="Linkedin" required/>
                  {/* Dont forget to make it a url type */}
              </label>
              <button className="submit-button">Submit</button>
@@ -49,27 +51,33 @@ export function EducationForm({setEducationInfo, setEduItems, EduItems, educatio
         localStorage.setItem('eduItems', JSON.stringify([...EduItems, educationInfo]));
         console.log(educationInfo)
     }
+    useEffect(() => {
+        const savedEduItems = JSON.parse(localStorage.getItem('eduItems'));
+        if (savedEduItems) {
+            setEduItems(savedEduItems);
+        }
+    }, [setEduItems]);
     return (
         <div>
             <h3>Enter Educational Details</h3>
             <form action="#" method="get" onSubmit={handleSubmit}>
                 <label htmlFor="School">
-                    <input type="text" placeholder="Enter School/College/University" name="School" onChange={handleChange} value={educationInfo.School}/>
+                    <input type="text" placeholder="Enter School/College/University" name="School" onChange={handleChange} value={educationInfo.School} required/>
                 </label>
                 <label htmlFor="Grade">
                     <input type="number" placeholder="Enter Grade in University" name="Grade" onChange={handleChange} value={educationInfo.Grade} />
                 </label>
                 <label htmlFor="FieldOfStudy">
-                    <input type="text" placeholder="Field of Study" name="FieldofStudy" onChange={handleChange} value={educationInfo.FieldofStudy}/>
+                    <input type="text" placeholder="Field of Study" name="FieldofStudy" onChange={handleChange} value={educationInfo.FieldofStudy} required/>
                 </label>
                 <label htmlFor="StartDate">
-                    <input type="date" placeholder="Enter Start Date" name="StartDate" onChange={handleChange} value={educationInfo.StartDate}/>
+                    <input type="date" placeholder="Enter Start Date" name="StartDate" onChange={handleChange} value={educationInfo.StartDate} required/>
                 </label>
                 <label htmlFor="EndDate">
-                    <input type="date" placeholder="Enter End Date" name="EndDate" onChange={handleChange} value={educationInfo.EndDate}/>
+                    <input type="date" placeholder="Enter End Date" name="EndDate" onChange={handleChange} value={educationInfo.EndDate} required/>
                 </label>
                 <label htmlFor="Location">
-                    <input type="text" placeholder="Enter Location of the College" name="Location" onChange={handleChange} value={educationInfo.location}/>
+                    <input type="text" placeholder="Enter Location of the College" name="Location" onChange={handleChange} value={educationInfo.location} required/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -87,27 +95,43 @@ export function ExperienceForm({setExperienceInfo, experienceInfo, ExpItems, set
     const handleSubmit = (e) => {
         e.preventDefault();
         setExpItems([...ExpItems, experienceInfo])
-        setExperienceInfo({CompanyName: '', Position: '', StartDate:'', EndDate:'', Location:''});
+        setExperienceInfo({CompanyName: '', Position: '', StartDate:'', EndDate:'', Location:'', Point1:'', Point2:'', Point3:'', Point4:''});
+        localStorage.setItem('expItems', JSON.stringify([...ExpItems, experienceInfo]));
         console.log(experienceInfo)
     }
+    useEffect(() => {
+        const savedExpItems = JSON.parse(localStorage.getItem('expItems'));
+        if (savedExpItems) {
+            setExpItems(savedExpItems);
+        }
+    }, [setExpItems]);
     return (
         <div>
             <h3>Enter Experience</h3>
             <form action="#" method="get" onSubmit={handleSubmit} onChange={handleChange}>
                 <label htmlFor="CompanyName">
-                    <input type="text" placeholder="Enter Company Name" name="CompanyName" value={experienceInfo.CompanyName}/>
+                    <input type="text" placeholder="Enter Company Name" name="CompanyName" value={experienceInfo.CompanyName} required/>
                 </label>
                 <label htmlFor="Position">
-                    <input type="text" placeholder="Position" name="Position" value={experienceInfo.Position}/>
+                    <input type="text" placeholder="Position" name="Position" value={experienceInfo.Position} required/>
                 </label>
                 <label htmlFor="StartDate">
-                    <input type="text" placeholder="Enter Start Date" name="StartDate" value={experienceInfo.StartDate}/>
+                    <input type="text" placeholder="Enter Start Date" name="StartDate" value={experienceInfo.StartDate} required/>
                 </label>
                 <label htmlFor="EndDate">
-                    <input type="text" placeholder="Enter End Date" name="EndDate" value={experienceInfo.EndDate}/>
+                    <input type="text" placeholder="Enter End Date" name="EndDate" value={experienceInfo.EndDate} required/>
                 </label>
                 <label htmlFor="Location">
-                    <input type="text" placeholder="Enter Location of the Company" name="Location" value={experienceInfo.Location}/>
+                    <input type="text" placeholder="Enter Location of the Company" name="Location" value={experienceInfo.Location} required/>
+                </label>
+                <label htmlFor="Points">
+                    <h6>Enter Description of the type of work you did</h6>
+                    <input type="text" placeholder="Enter Description" name="Point1" value={experienceInfo.Point1} required/>
+                    <input type="text" placeholder="Enter Description" name="Point2" value={experienceInfo.Point2} required/>
+                    <h6>(Optional)</h6>
+                    <input type="text" placeholder="Enter Description" name="Point3" value={experienceInfo.Point3}/>
+                    <h6>(Optional)</h6>
+                    <input type="text" placeholder="Enter Description" name="Point1" value={experienceInfo.Point4}/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -127,7 +151,14 @@ export function SkillForm({setSkillInfo, skillInfo, SkillItems, setSkillItems}) 
         setSkillItems([...SkillItems, skillInfo])
         setSkillInfo({SkillDomain:'', Skills:''});
         console.log(skillInfo)
+        localStorage.setItem('skilledItems', JSON.stringify([...SkillItems, skillInfo]));
     }
+    useEffect(() => {
+        const savedSkillItems = JSON.parse(localStorage.getItem('skilledItems'));
+        if (savedSkillItems) {
+            setSkillItems(savedSkillItems);
+        }
+    }, [setSkillItems]);
     return (
         <div>
             <h3>
@@ -135,10 +166,10 @@ export function SkillForm({setSkillInfo, skillInfo, SkillItems, setSkillItems}) 
             </h3>
             <form action="#" method="get" onSubmit={handleSubmit} onChange={handleChange}>
                 <label htmlFor="SkillS Name">
-                    <input type="text" placeholder="Enter Domain" name="SkillDomain" value={skillInfo.SkillDomain}/>
+                    <input type="text" placeholder="Enter Domain" name="SkillDomain" value={skillInfo.SkillDomain} required/>
                 </label>
                 <label htmlFor="Skills">
-                    <input type="text" placeholder="Enter Skills in that domain..." name="Skills" value={skillInfo.Skills}/>
+                    <input type="text" placeholder="Enter Skills in that domain..." name="Skills" value={skillInfo.Skills} required/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -157,8 +188,15 @@ export function AchievementForm ({setAchievementInfo, AchievementsInfo, Achievem
         e.preventDefault();
         setAchievementItems([...AchievementsItems, AchievementsInfo])
         setAchievementInfo({Name:'', Description:''});
-        console.log(AchievementsInfo)
+        console.log(AchievementsInfo);
+        localStorage.setItem('achieveItems', JSON.stringify([...AchievementsItems, AchievementsInfo]));
     }
+    useEffect(() => {
+        const savedAchieveItems = JSON.parse(localStorage.getItem('achieveItems'));
+        if (savedAchieveItems) {
+            setAchievementItems(savedAchieveItems);
+        }
+    }, [setAchievementItems]);
 
     return (
         <div>
@@ -167,10 +205,10 @@ export function AchievementForm ({setAchievementInfo, AchievementsInfo, Achievem
             </h3>
             <form action="#" method="get" onSubmit={handleSubmit}>
                 <label htmlFor="Achievement Name">
-                    <input type="text" placeholder="Enter Achievement Name" name="Name" value={AchievementsInfo.Name} onChange={handleChange}/>
+                    <input type="text" placeholder="Enter Achievement Name" name="Name" value={AchievementsInfo.Name} onChange={handleChange} required/>
                 </label>
                 <label htmlFor="Description">
-                    <input type="text" placeholder="Enter a short description" name="Description" value={AchievementsInfo.Description} onChange={handleChange}/>
+                    <input type="text" placeholder="Enter a short description" name="Description" value={AchievementsInfo.Description} onChange={handleChange} required/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -190,7 +228,14 @@ export function ProjectForm ({setProjectInfo, projectInfo, setProjectItems, Proj
         setProjectItems([...ProjectItems, projectInfo])
         setProjectInfo({ProjectName:'', ProjectDes:'', ProjectLink:''});
         console.log(projectInfo)
+        localStorage.setItem('projectItems', JSON.stringify([...ProjectItems, projectInfo]));
     }
+    useEffect(() => {
+        const savedProjectItems = JSON.parse(localStorage.getItem('projectItems'));
+        if (savedProjectItems) {
+            setProjectItems(savedProjectItems);
+        }
+    }, [setProjectItems]);
     return (
         <div>
             <h3>
@@ -198,13 +243,13 @@ export function ProjectForm ({setProjectInfo, projectInfo, setProjectItems, Proj
             </h3>
             <form action="#" method="get" onSubmit={handleSubmit}>
                 <label htmlFor="Project Title">
-                    <input type="text" placeholder="Enter Project Title" name="ProjectName" value={projectInfo.ProjectName} onChange={handleChange}/>
+                    <input type="text" placeholder="Enter Project Title" name="ProjectName" value={projectInfo.ProjectName} onChange={handleChange} required/>
                 </label>
                 <label htmlFor="Project Description">
-                    <input type="text" placeholder="Enter Project Description" name="ProjectDes" value={projectInfo.ProjectDes} onChange={handleChange}/>
+                    <input type="text" placeholder="Enter Project Description" name="ProjectDes" value={projectInfo.ProjectDes} onChange={handleChange} required maxLength={250}/>
                 </label>
                 <label htmlFor="Project Link">
-                    <input type="text" placeholder="" name="ProjectLink" value={projectInfo.ProjectLink} onChange={handleChange}/>
+                    <input type="url" placeholder="" name="ProjectLink" value={projectInfo.ProjectLink} onChange={handleChange}/>
                 </label>
                 <button>Submit</button>
             </form>
@@ -223,8 +268,15 @@ export function CertificateForm({setCertificateInfo, CertificateInfo, Certificat
         e.preventDefault();
         setCertificateItems([...CertificateItems, CertificateInfo])
         setCertificateInfo({CertificateName:'', Grantedby:'', CertID:'', Date:''});
-        console.log(CertificateInfo)
+        console.log(CertificateInfo);
+        localStorage.setItem('certiItems', JSON.stringify([...CertificateItems, CertificateInfo]));
     }
+    useEffect(() => {
+        const savedCertiItems = JSON.parse(localStorage.getItem('certiItems'));
+        if (savedCertiItems) {
+            setCertificateItems(savedCertiItems);
+        }
+    }, [setCertificateItems]);
     return (
         <div>
             <h3>

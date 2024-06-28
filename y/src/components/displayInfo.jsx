@@ -1,32 +1,26 @@
 // import { useState } from 'react'
 import './resume.css'
-export default function DisplayInfo({
-            personalInfo, 
-            educationInfo, 
-            experienceInfo, 
-            skillInfo, 
-            EduItems, 
-            ExpItems, 
-            SkillItems, 
-            projectInfo, 
-            ProjectItems, 
-            CertificateItems, 
-            CertificateInfo, 
-            AchievementsItems,
-            AchievementsInfo,
-        }) {
+export default function DisplayInfo() {
+            console.log(localStorage)
+            const storedPersonalInfo = JSON.parse(localStorage.getItem('personalInfo'));
+            const storedEduItems = JSON.parse(localStorage.getItem('eduItems'));
+            const storedExpItems = JSON.parse(localStorage.getItem('expItems'));
+            const storedSkillItems = JSON.parse(localStorage.getItem('skilledItems'));
+            const storedAchievementsItems = JSON.parse(localStorage.getItem('achieveItems'));
+            const storedProjectItems = JSON.parse(localStorage.getItem('projectItems'));
+            const storedCertificateItems = JSON.parse(localStorage.getItem('certiItems'))
     return (
         <div className="resume">
-            {personalInfo ? (
+            {storedPersonalInfo ? (
                 <>
                 <div className='header'>
-                    <h5>{personalInfo.FullName}</h5>
+                    <h5>{storedPersonalInfo.FullName}</h5>
                     <div className='below-header'>
-                    <p>{personalInfo.Email}</p>
+                    <p>{storedPersonalInfo.Email}</p>
                     <hr/>
-                    <p>{personalInfo.PhoneNumber}</p>
+                    <p>{storedPersonalInfo.PhoneNumber}</p>
                     <hr />
-                    <p>{personalInfo.Linkedin}</p>
+                    <p>{storedPersonalInfo.Linkedin}</p>
                     </div>
                 </div>
                 </>
@@ -35,20 +29,20 @@ export default function DisplayInfo({
                      <h5>XYZ ABC</h5>
                     <div className='below-header'>
                     <p>xyz@email.com</p>
-                    <hr />
+                    <hr/>
                      <p>+91 123456789</p>
                      <hr />
                      <p>www.linkedin.com</p>
                     </div>
                 </div>
             )}
-            <h3>Educational Info</h3>
+            <h3>Education</h3>
             <hr></hr>
-            {educationInfo ? (
+            {storedEduItems ? (
                 <>
                  <div className='education'>
                         <div>
-                        {EduItems.map((item, index) => (
+                        {storedEduItems.map((item, index) => (
                             <div key={index}>
                                 <div className='educationInfo'>
                                 <div>
@@ -60,52 +54,80 @@ export default function DisplayInfo({
                                     <p><em>{item.StartDate} - {item.EndDate}</em></p> 
                                 </div>    
                                 </div>
+                                <br />
                             </div>
                             ))}
                         </div>
                 </div>
                 </>
             ) : (
-                <div className='education'>
-    
-                </div>
+                null
             )
             }
             <h3>Experience</h3>
             <hr></hr>
-            {experienceInfo ? (
+            {storedExpItems ? (
                 <>
                 <div className='education'>
                     <div>
-                    {ExpItems.map((item, index) => (
+                    {storedExpItems.map((item, index) => (
                             <div key={index}>
                                 <div className='educationInfo'>
                                 <div>
                                     <p><strong>{item.CompanyName}</strong></p>
-                                    <p><em>{item.Position}</em></p>
+                                    <p className='below-text'><em>{item.Position}</em></p>
+                                    <div>
+                                    {item.Point1 ? (
+                                        <>
+                                        <ul>
+                                            <li><i>{item.Point1}</i></li>
+                                        </ul>
+                                        </>
+                                    ) : null}
+                                    {item.Point2 ? (
+                                        <>
+                                        <ul>
+                                            <li><i>{item.Point2}</i></li>
+                                        </ul>
+                                        </>
+                                    ) : null}
+                                     {item.Point3 ? (
+                                        <>
+                                        <ul>
+                                            <li><i>{item.Point3}</i></li>
+                                        </ul>
+                                        </>
+                                    ) : null}
+                                     {item.Point4 ? (
+                                        <>
+                                        <ul>
+                                            <li><i>{item.Point4}</i></li>
+                                        </ul>
+                                        </>
+                                    ) : null}
+                                    </div>
                                 </div>
                                 <div className='location secondary'>
                                     <p><strong>{item.Location}</strong></p>
-                                    <p><em>{item.StartDate} - {item.EndDate}</em></p> 
+                                    <p className='below-text'><em>{item.StartDate} - {item.EndDate}</em></p> 
                                 </div>    
                                 </div>
-                            <br />
+                                <br />
                             </div>
                         ))}
                     </div>
                 </div>
                 </>
             ) : (
-                <div className='displayExperience'>
-                </div>
+                null
             )}
             <h3>Skills</h3>
             <hr></hr>
-            {skillInfo ? (
+            {storedSkillItems ? (
                 <>
                 <div className='displaySkills'>
                 <div>
-                    {SkillItems.map((items, index)=> (
+                    {storedSkillItems.map((items, index)=> (
                         <div key={index}>
                             <p> <strong> {items.SkillDomain} : </strong> {items.Skills}</p>
                         </div>
@@ -114,48 +136,49 @@ export default function DisplayInfo({
                 </div>
                 </>
             ) : (
-                <div className='displaySkills'>
-                    <h6> <strong></strong>Skill Domain: </h6>
-                    <p>Skill-1, Skill-2, Skill-3, etc</p>
-                </div>
+                null
             )
             }
-              {projectInfo && (
+              {storedProjectItems && (
                 <div className='project-info'>
                    
-                    {ProjectItems.map((project, index) => (
+                    {storedProjectItems.map((project, index) => (
                         <div key={index} className='project-item'>
                             <h3>Projects</h3>
                             <hr />
                             <div className='displaySkills'>
                             <p><strong>{project.ProjectName}</strong> [{project.ProjectLink}]</p>
                             <p>{project.ProjectDes}</p>
-
                             </div>
                         </div>
                     ))}
                 </div>
             )}
-             {CertificateInfo && (
+             {storedCertificateItems && (
                 <div className='project-info'>
                    
-                    {CertificateItems.map((certificate, index) => (
+                    {storedCertificateItems.map((certificate, index) => (
                         <div key={index} className='project-item'>
                             <h3>Certificates</h3>
                             <hr />
-                            <div className='displaySkills'>
-                            <p><strong>{certificate.CertificateName}</strong> [{certificate.Grantedby}]</p>
-                            <p>{certificate.Date}</p>
+                            <div className='educationInfo'>
+                            <div>
+                            <p><strong>{certificate.CertificateName}</strong> </p>
                             <p>{certificate.CertID}</p>
                             </div>
+                            <div>
+                            <p>[{certificate.Grantedby}]</p>
+                            <p>{certificate.Date}</p>
+                            </div>
+                            </div>
+                            <br />
                         </div>
                     ))}
                 </div>
             )}
-             {AchievementsInfo && (
+             {storedAchievementsItems && (
                 <div className='project-info'>
-                   
-                    {AchievementsItems.map((achievement, index) => (
+                    {storedAchievementsItems.map((achievement, index) => (
                         <div key={index} className='project-item'>
                             <h3>Achievements</h3>
                             <hr />
@@ -164,7 +187,6 @@ export default function DisplayInfo({
                             <p>{achievement.Description}</p>
                             </div>
                         </div>
-
                     ))}
                 </div>
             )}

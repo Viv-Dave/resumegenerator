@@ -5,11 +5,11 @@ body {
     border: 2px solid black;
     padding: 30px;
     font-size: 30px;
-    height: max-content;
     width: 20em;
     display: flex;
     flex-direction: column;
     font-family: var(--font-style);
+    height: 297mm;
 }
 .header {
     display: flex;
@@ -55,8 +55,10 @@ h3 {
     grid-template-columns: 1fr auto;
     gap: 350px; 
     align-items: center; /* Vertically aligns items */ 
-    margin: 0;
-    padding: 0; 
+    margin-bottom: -5px;
+}
+.educationInfo p {
+    margin: 8px 3px;
 }
 .location{
     text-align: right;
@@ -75,4 +77,10 @@ h3 {
     --font-size: 1rem;
     --font-style: sans-serif;
 }
-
+.below-text {
+    padding: 0;
+    padding-bottom: -10px;
+}
+strong {
+    padding: 0px;
+}
